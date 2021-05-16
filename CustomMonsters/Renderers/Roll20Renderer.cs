@@ -5,7 +5,7 @@ using Masterplan.Data;
 
 namespace MonsterPorter.Renderers
 {
-    class Roll20Renderer : BaseRenderer
+    class Roll20Renderer : IRenderer
     {
         const string END = "$T4E";
         const string MACRO_START = "!c @{selected|token_id}$$";

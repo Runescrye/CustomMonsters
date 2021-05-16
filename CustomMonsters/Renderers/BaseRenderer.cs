@@ -2,7 +2,7 @@
 
 namespace MonsterPorter.Renderers
 {
-    abstract class BaseRenderer
+    interface IRenderer
     {
         public abstract string Render(ICreature creature);
     }
