@@ -10,3 +10,6 @@ For parsing ease, it assumes that effects of a hit are preceded by "Hit: " and a
 In Roll20, add the "importmonster4e.js" script for your games Roll20 API. Use the generated !c command in chat with a selected token to assign the token all the relevant powers and stats.
 
 It hasn't been tested on a whole lot of creatures, 
+
+# Credits
+Vorpal for writing the initial Roll20 JS import script.
