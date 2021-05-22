@@ -5,5 +5,8 @@
     <Setting Name="CreatureDirectoryPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="RenderType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Roll20</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

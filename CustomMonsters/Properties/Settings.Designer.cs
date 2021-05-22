@@ -34,5 +34,17 @@ namespace MonsterPorter.Properties {
                 this["CreatureDirectoryPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Roll20")]
+        public string RenderType {
+            get {
+                return ((string)(this["RenderType"]));
+            }
+            set {
+                this["RenderType"] = value;
+            }
+        }
     }
 }

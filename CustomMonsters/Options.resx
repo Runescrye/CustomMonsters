@@ -78,7 +78,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtCreatureLocation.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="btnBrowse.Location" type="System.Drawing.Point, System.Drawing.Primitives">
     <value>498, 10</value>
@@ -102,7 +102,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;btnBrowse.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, System.Private.CoreLib">
     <value>True</value>
@@ -111,13 +111,13 @@
     <value>12, 15</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>103, 15</value>
+    <value>106, 15</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, System.Private.CoreLib">
     <value>2</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Creature Directory</value>
+    <value>Creature Directory:</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -129,6 +129,64 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lblRenderType.AutoSize" type="System.Boolean, System.Private.CoreLib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=5.0.5.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblRenderType.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblRenderType.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>12, 41</value>
+  </data>
+  <data name="lblRenderType.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>74, 15</value>
+  </data>
+  <data name="lblRenderType.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>3</value>
+  </data>
+  <data name="lblRenderType.Text" xml:space="preserve">
+    <value>Render Type:</value>
+  </data>
+  <data name="&gt;&gt;lblRenderType.Name" xml:space="preserve">
+    <value>lblRenderType</value>
+  </data>
+  <data name="&gt;&gt;lblRenderType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=5.0.5.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblRenderType.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblRenderType.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comboRenderType.Items" xml:space="preserve">
+    <value>Roll20</value>
+  </data>
+  <data name="comboRenderType.Items1" xml:space="preserve">
+    <value>Json</value>
+  </data>
+  <data name="comboRenderType.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>121, 41</value>
+  </data>
+  <data name="comboRenderType.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>121, 23</value>
+  </data>
+  <data name="comboRenderType.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;comboRenderType.Name" xml:space="preserve">
+    <value>comboRenderType</value>
+  </data>
+  <data name="&gt;&gt;comboRenderType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=5.0.5.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboRenderType.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboRenderType.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
@@ -138,9 +196,8 @@
     <value>7, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>544, 41</value>
+    <value>544, 65</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=5.0.5.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
   </data>

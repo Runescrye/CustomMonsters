@@ -41,7 +41,7 @@ namespace MonsterPorter
                 var creatureFiles = System.IO.Directory.GetFiles(Properties.Settings.Default.CreatureDirectoryPath, "*.creature");
                 foreach (var filePath in creatureFiles)
                 {
-                    var item = lstCreatures.Items.Add(new CreatureFile(filePath));
+                   lstCreatures.Items.Add(new CreatureFile(filePath));
                 }
             }
         }
@@ -52,11 +52,28 @@ namespace MonsterPorter
             {
                 var selectedCreatureFile = (CreatureFile)lstCreatures.SelectedItem;
                 var creature = selectedCreatureFile.ExtractCreature();
-
-                var renderer = new Roll20Renderer();
+                var renderer = CreateRenderer(Properties.Settings.Default.RenderType);
                 var macro = renderer.Render(creature);
                 txtCreatureMacro.Text = macro;
             }
         }
+
+        private IRenderer CreateRenderer(string rendererName)
+        {
+            switch (rendererName)
+            {
+                case "Roll20":
+                    return new Roll20Renderer();
+                case "Json":
+                    return new JsonRenderer();
+                default:
+                    return new Roll20Renderer();
+            }
+        }
+    }
+
+    public enum RenderType
+    {
+
     }
 }

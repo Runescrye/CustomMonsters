@@ -92,6 +92,7 @@ namespace MonsterPorter
             this.txtCreatureMacro.Name = "txtCreatureMacro";
             this.txtCreatureMacro.PlaceholderText = "Creature Macro Text";
             this.txtCreatureMacro.ReadOnly = true;
+            this.txtCreatureMacro.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtCreatureMacro.Size = new System.Drawing.Size(642, 426);
             this.txtCreatureMacro.TabIndex = 0;
             // 

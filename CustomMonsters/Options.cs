@@ -39,11 +39,18 @@ namespace MonsterPorter
         private void Options_Load(object sender, EventArgs e)
         {
             txtCreatureLocation.Text = Properties.Settings.Default.CreatureDirectoryPath;
+            comboRenderType.SelectedItem = Properties.Settings.Default.RenderType;
         }
 
         private void SetCreaturePath(string path)
         {
             txtCreatureLocation.Text = Properties.Settings.Default.CreatureDirectoryPath;
+            Properties.Settings.Default.Save();
+        }
+
+        private void comboRenderType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.RenderType = comboRenderType.SelectedItem.ToString();
             Properties.Settings.Default.Save();
         }
     }

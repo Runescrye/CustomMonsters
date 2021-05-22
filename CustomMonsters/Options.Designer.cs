@@ -34,6 +34,8 @@ namespace MonsterPorter
             this.txtCreatureLocation = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblRenderType = new System.Windows.Forms.Label();
+            this.comboRenderType = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txtCreatureLocation
@@ -54,10 +56,28 @@ namespace MonsterPorter
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
             // 
+            // lblRenderType
+            // 
+            resources.ApplyResources(this.lblRenderType, "lblRenderType");
+            this.lblRenderType.Name = "lblRenderType";
+            // 
+            // comboRenderType
+            // 
+            this.comboRenderType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboRenderType.FormattingEnabled = true;
+            this.comboRenderType.Items.AddRange(new object[] {
+            resources.GetString("comboRenderType.Items"),
+            resources.GetString("comboRenderType.Items1")});
+            resources.ApplyResources(this.comboRenderType, "comboRenderType");
+            this.comboRenderType.Name = "comboRenderType";
+            this.comboRenderType.SelectedIndexChanged += new System.EventHandler(this.comboRenderType_SelectedIndexChanged);
+            // 
             // Options
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.comboRenderType);
+            this.Controls.Add(this.lblRenderType);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtCreatureLocation);
@@ -78,5 +98,7 @@ namespace MonsterPorter
         private System.Windows.Forms.TextBox txtCreatureLocation;
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblRenderType;
+        private System.Windows.Forms.ComboBox comboRenderType;
     }
 }
