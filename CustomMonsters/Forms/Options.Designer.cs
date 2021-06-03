@@ -32,10 +32,14 @@ namespace MonsterPorter
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Options));
             this.browseCreatureFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.txtCreatureLocation = new System.Windows.Forms.TextBox();
-            this.btnBrowse = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnCreatureBrowse = new System.Windows.Forms.Button();
+            this.lblCreatureLocation = new System.Windows.Forms.Label();
             this.lblRenderType = new System.Windows.Forms.Label();
             this.comboRenderType = new System.Windows.Forms.ComboBox();
+            this.lblLibraryLocation = new System.Windows.Forms.Label();
+            this.txtLibraryLocation = new System.Windows.Forms.TextBox();
+            this.btnLibraryBrowse = new System.Windows.Forms.Button();
+            this.browseLibraryFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.SuspendLayout();
             // 
             // txtCreatureLocation
@@ -44,17 +48,17 @@ namespace MonsterPorter
             this.txtCreatureLocation.Name = "txtCreatureLocation";
             this.txtCreatureLocation.Leave += new System.EventHandler(this.txtCreatureLocation_Leave);
             // 
-            // btnBrowse
+            // btnCreatureBrowse
             // 
-            resources.ApplyResources(this.btnBrowse, "btnBrowse");
-            this.btnBrowse.Name = "btnBrowse";
-            this.btnBrowse.UseVisualStyleBackColor = true;
-            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            resources.ApplyResources(this.btnCreatureBrowse, "btnCreatureBrowse");
+            this.btnCreatureBrowse.Name = "btnCreatureBrowse";
+            this.btnCreatureBrowse.UseVisualStyleBackColor = true;
+            this.btnCreatureBrowse.Click += new System.EventHandler(this.btnCreatureBrowse_Click);
             // 
-            // label1
+            // lblCreatureLocation
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.lblCreatureLocation, "lblCreatureLocation");
+            this.lblCreatureLocation.Name = "lblCreatureLocation";
             // 
             // lblRenderType
             // 
@@ -72,14 +76,35 @@ namespace MonsterPorter
             this.comboRenderType.Name = "comboRenderType";
             this.comboRenderType.SelectedIndexChanged += new System.EventHandler(this.comboRenderType_SelectedIndexChanged);
             // 
+            // lblLibraryLocation
+            // 
+            resources.ApplyResources(this.lblLibraryLocation, "lblLibraryLocation");
+            this.lblLibraryLocation.Name = "lblLibraryLocation";
+            // 
+            // txtLibraryLocation
+            // 
+            resources.ApplyResources(this.txtLibraryLocation, "txtLibraryLocation");
+            this.txtLibraryLocation.Name = "txtLibraryLocation";
+            this.txtLibraryLocation.Leave += new System.EventHandler(this.txtLibraryLocation_Leave);
+            // 
+            // btnLibraryBrowse
+            // 
+            resources.ApplyResources(this.btnLibraryBrowse, "btnLibraryBrowse");
+            this.btnLibraryBrowse.Name = "btnLibraryBrowse";
+            this.btnLibraryBrowse.UseVisualStyleBackColor = true;
+            this.btnLibraryBrowse.Click += new System.EventHandler(this.btnLibraryBrowse_Click);
+            // 
             // Options
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnLibraryBrowse);
+            this.Controls.Add(this.txtLibraryLocation);
+            this.Controls.Add(this.lblLibraryLocation);
             this.Controls.Add(this.comboRenderType);
             this.Controls.Add(this.lblRenderType);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnBrowse);
+            this.Controls.Add(this.lblCreatureLocation);
+            this.Controls.Add(this.btnCreatureBrowse);
             this.Controls.Add(this.txtCreatureLocation);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
@@ -96,9 +121,13 @@ namespace MonsterPorter
 
         private System.Windows.Forms.FolderBrowserDialog browseCreatureFolder;
         private System.Windows.Forms.TextBox txtCreatureLocation;
-        private System.Windows.Forms.Button btnBrowse;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnCreatureBrowse;
+        private System.Windows.Forms.Label lblCreatureLocation;
         private System.Windows.Forms.Label lblRenderType;
         private System.Windows.Forms.ComboBox comboRenderType;
+        private System.Windows.Forms.Label lblLibraryLocation;
+        private System.Windows.Forms.TextBox txtLibraryLocation;
+        private System.Windows.Forms.Button btnLibraryBrowse;
+        private System.Windows.Forms.FolderBrowserDialog browseLibraryFolder;
     }
 }

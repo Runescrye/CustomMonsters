@@ -8,5 +8,8 @@
     <Setting Name="RenderType" Type="System.String" Scope="User">
       <Value Profile="(Default)">Roll20</Value>
     </Setting>
+    <Setting Name="LibraryDirectoryPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

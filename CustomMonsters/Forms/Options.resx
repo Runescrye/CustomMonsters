@@ -78,58 +78,58 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;txtCreatureLocation.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
-  <data name="btnBrowse.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>498, 10</value>
+  <data name="btnCreatureBrowse.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>497, 12</value>
   </data>
-  <data name="btnBrowse.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+  <data name="btnCreatureBrowse.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>35, 23</value>
   </data>
-  <data name="btnBrowse.TabIndex" type="System.Int32, System.Private.CoreLib">
+  <data name="btnCreatureBrowse.TabIndex" type="System.Int32, System.Private.CoreLib">
     <value>1</value>
   </data>
-  <data name="btnBrowse.Text" xml:space="preserve">
+  <data name="btnCreatureBrowse.Text" xml:space="preserve">
     <value>...</value>
   </data>
-  <data name="&gt;&gt;btnBrowse.Name" xml:space="preserve">
-    <value>btnBrowse</value>
+  <data name="&gt;&gt;btnCreatureBrowse.Name" xml:space="preserve">
+    <value>btnCreatureBrowse</value>
   </data>
-  <data name="&gt;&gt;btnBrowse.Type" xml:space="preserve">
+  <data name="&gt;&gt;btnCreatureBrowse.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=5.0.5.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;btnBrowse.Parent" xml:space="preserve">
+  <data name="&gt;&gt;btnCreatureBrowse.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;btnBrowse.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="&gt;&gt;btnCreatureBrowse.ZOrder" xml:space="preserve">
+    <value>6</value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, System.Private.CoreLib">
+  <data name="lblCreatureLocation.AutoSize" type="System.Boolean, System.Private.CoreLib">
     <value>True</value>
   </data>
-  <data name="label1.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+  <data name="lblCreatureLocation.Location" type="System.Drawing.Point, System.Drawing.Primitives">
     <value>12, 15</value>
   </data>
-  <data name="label1.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+  <data name="lblCreatureLocation.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>106, 15</value>
   </data>
-  <data name="label1.TabIndex" type="System.Int32, System.Private.CoreLib">
+  <data name="lblCreatureLocation.TabIndex" type="System.Int32, System.Private.CoreLib">
     <value>2</value>
   </data>
-  <data name="label1.Text" xml:space="preserve">
+  <data name="lblCreatureLocation.Text" xml:space="preserve">
     <value>Creature Directory:</value>
   </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
+  <data name="&gt;&gt;lblCreatureLocation.Name" xml:space="preserve">
+    <value>lblCreatureLocation</value>
   </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+  <data name="&gt;&gt;lblCreatureLocation.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=5.0.5.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;lblCreatureLocation.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;lblCreatureLocation.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="lblRenderType.AutoSize" type="System.Boolean, System.Private.CoreLib">
     <value>True</value>
@@ -139,7 +139,7 @@
     <value>NoControl</value>
   </data>
   <data name="lblRenderType.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>12, 41</value>
+    <value>12, 72</value>
   </data>
   <data name="lblRenderType.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>74, 15</value>
@@ -160,7 +160,7 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;lblRenderType.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="comboRenderType.Items" xml:space="preserve">
     <value>Roll20</value>
@@ -169,7 +169,7 @@
     <value>Json</value>
   </data>
   <data name="comboRenderType.Location" type="System.Drawing.Point, System.Drawing.Primitives">
-    <value>121, 41</value>
+    <value>121, 69</value>
   </data>
   <data name="comboRenderType.Size" type="System.Drawing.Size, System.Drawing.Primitives">
     <value>121, 23</value>
@@ -187,6 +187,84 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;comboRenderType.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="lblLibraryLocation.AutoSize" type="System.Boolean, System.Private.CoreLib">
+    <value>True</value>
+  </data>
+  <data name="lblLibraryLocation.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblLibraryLocation.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>12, 43</value>
+  </data>
+  <data name="lblLibraryLocation.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>97, 15</value>
+  </data>
+  <data name="lblLibraryLocation.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>5</value>
+  </data>
+  <data name="lblLibraryLocation.Text" xml:space="preserve">
+    <value>Library Directory:</value>
+  </data>
+  <data name="&gt;&gt;lblLibraryLocation.Name" xml:space="preserve">
+    <value>lblLibraryLocation</value>
+  </data>
+  <data name="&gt;&gt;lblLibraryLocation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=5.0.5.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblLibraryLocation.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblLibraryLocation.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="txtLibraryLocation.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>121, 40</value>
+  </data>
+  <data name="txtLibraryLocation.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>371, 23</value>
+  </data>
+  <data name="txtLibraryLocation.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;txtLibraryLocation.Name" xml:space="preserve">
+    <value>txtLibraryLocation</value>
+  </data>
+  <data name="&gt;&gt;txtLibraryLocation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=5.0.5.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txtLibraryLocation.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;txtLibraryLocation.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btnLibraryBrowse.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnLibraryBrowse.Location" type="System.Drawing.Point, System.Drawing.Primitives">
+    <value>498, 40</value>
+  </data>
+  <data name="btnLibraryBrowse.Size" type="System.Drawing.Size, System.Drawing.Primitives">
+    <value>35, 23</value>
+  </data>
+  <data name="btnLibraryBrowse.TabIndex" type="System.Int32, System.Private.CoreLib">
+    <value>7</value>
+  </data>
+  <data name="btnLibraryBrowse.Text" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="&gt;&gt;btnLibraryBrowse.Name" xml:space="preserve">
+    <value>btnLibraryBrowse</value>
+  </data>
+  <data name="&gt;&gt;btnLibraryBrowse.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=5.0.5.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnLibraryBrowse.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btnLibraryBrowse.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
@@ -196,7 +274,7 @@
     <value>7, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing.Primitives">
-    <value>544, 65</value>
+    <value>544, 101</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
@@ -208,6 +286,12 @@
     <value>browseCreatureFolder</value>
   </data>
   <data name="&gt;&gt;browseCreatureFolder.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=5.0.5.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;browseLibraryFolder.Name" xml:space="preserve">
+    <value>browseLibraryFolder</value>
+  </data>
+  <data name="&gt;&gt;browseLibraryFolder.Type" xml:space="preserve">
     <value>System.Windows.Forms.FolderBrowserDialog, System.Windows.Forms, Version=5.0.5.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

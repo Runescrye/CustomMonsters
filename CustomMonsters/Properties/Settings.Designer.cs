@@ -46,5 +46,17 @@ namespace MonsterPorter.Properties {
                 this["RenderType"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LibraryDirectoryPath {
+            get {
+                return ((string)(this["LibraryDirectoryPath"]));
+            }
+            set {
+                this["LibraryDirectoryPath"] = value;
+            }
+        }
     }
 }
