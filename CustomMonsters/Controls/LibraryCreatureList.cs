@@ -159,10 +159,6 @@ namespace MonsterPorter.Controls
                 var creature = (ICreature)list.SelectedItems[0].Tag;
                 lblSource.Text = repo.LibraryByCreature[creature.Name].Name;
             }
-            else
-            {
-                lblSource.Text = string.Empty;
-            }
         }
     }
 }

@@ -104,8 +104,8 @@ namespace MonsterPorter
             // 
             // tabCreatures
             // 
-            this.tabCreatures.Controls.Add(this.tabCustom);
             this.tabCreatures.Controls.Add(this.tabLibraries);
+            this.tabCreatures.Controls.Add(this.tabCustom);
             this.tabCreatures.Dock = System.Windows.Forms.DockStyle.Left;
             this.tabCreatures.Location = new System.Drawing.Point(0, 0);
             this.tabCreatures.Name = "tabCreatures";

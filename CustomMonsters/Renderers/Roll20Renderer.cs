@@ -95,22 +95,6 @@ namespace MonsterPorter.Renderers
             return result.ToString();
         }
 
-        private string ActionTypeToString(ActionType action)
-        {
-            switch (action)
-            {
-                case ActionType.None:
-                    return "No Action";
-                case ActionType.Interrupt:
-                case ActionType.Reaction:
-                    return "Immediate " + action.ToString();
-                case ActionType.Opportunity:
-                    return "Opportunity Action";
-                default:
-                    return action.ToString();
-            }
-        }
-
         private void ParseAttack(CreaturePower power, StringBuilder result)
         {
             if (power.Attack == null)
@@ -142,6 +126,22 @@ namespace MonsterPorter.Renderers
         private string AnnotateDamage(string source)
         {
             return dmgRegex.Replace(source, x => "XX" + x.Value + "ZZ");
+        }
+
+        private string ActionTypeToString(ActionType action)
+        {
+            switch (action)
+            {
+                case ActionType.None:
+                    return "No Action";
+                case ActionType.Interrupt:
+                case ActionType.Reaction:
+                    return "Immediate " + action.ToString();
+                case ActionType.Opportunity:
+                    return "Opportunity Action";
+                default:
+                    return action.ToString();
+            }
         }
     }
 }
