@@ -11,11 +11,19 @@ namespace MonsterPorter.Renderers
         const string MACRO_START = "!c @{selected|token_id}$$";
         const string CREATURE_STAT_BLOCK = @"${0}${1}${2}${3}${4}${5}${6}${7}" + END;
         const string CREATURE_AURA = @"{{{{other=yes}}}}{{{{name={0}}}}}{{{{effect={1}}}}}";
-        const string CREATURE_POWER = @"{{{{{0}=yes }}}}{{{{name={1}}}}}";
-        const string CREATURE_POWER_ATTACK = @"{{{{attack={0} XXd20+{1}ZZ vs {2}}}}}";
+        const string CREATURE_POWER_HEADER = @"{{{{{0}=yes }}}}{{{{name={1}}}}}";
+        const string CREATURE_POWER_ATTACK = @"{{{{attack=XXd20+{0}ZZ vs {1}}}}}";
         const string POWER_HIT = @"{{{{hiteffect={0}}}}}";
         const string POWER_EFFECT = @"{{{{effect={0}}}}}";
         const string AURA_NAME_FORMAT = @"{0} {1}";
+        const string PREREQUISITE = @"{{{{requirement={0}}}}}";
+        const string ACTION_TRIGGER = @"{{{{trigger={0}}}}}";
+        const string ACTION_KEYWORDS = @"{{{{keywords= ♦ {1}}}}}";
+        const string ACTION_TYPE = @"{{{{type={2}}}}}";
+        const string ACTION_USE_TYPE = @"{{{{action={3}}}}}";
+        const string ACTION_RANGE = @"{{{{range= ♦ {4}}}}}";
+        const string ACTION_FORMAT = ACTION_TRIGGER + ACTION_KEYWORDS + ACTION_TYPE + ACTION_USE_TYPE + ACTION_RANGE;
+        const string POWER_EMOTE = @"{{{{emote={0}}}}}";
 
         public override string Render(ICreature creature)
         {
@@ -68,34 +76,53 @@ namespace MonsterPorter.Renderers
                 {
                     result.Append(END);
                 }
-                var actionText = "other";
-                if (power.Action != null)
+                var actionHeadersUseType = "other";
+
+                if (power.Category != CreaturePowerCategory.Trait)
                 {
-                    actionText = base.PowerUseTypeToString(power.Action.Use);
+                    var actionType = ActionTypeToString(power.Action.Action);
+                    actionHeadersUseType = PowerUseTypeToHeaderString(power.Action.Use);
+                    var actionBodyUseType = PowerUseTypeToString(power.Action.Use);
+                    /*result.AppendFormat(ACTION_TYPE, actionType);
+                    result.AppendFormat(ACTION_USE_TYPE, PowerUseTypeToString(power.Action.Use));
+                    if (!string.IsNullOrEmpty(power.Keywords))
+                    {
+                        result.AppendFormat(ACTION_KEYWORDS, power.Keywords);
+                    }
+
+                    if (!string.IsNullOrEmpty(power.Action.Trigger))
+                    {
+                        result.AppendFormat(ACTION_TRIGGER, power.Action.Trigger);
+                    }
+
+                    var range = (power.Attack == null) ? "Personal" : "Melee";
+                    if (!string.IsNullOrEmpty(power.Range))
+                    {
+                        range = power.Range;
+                    }
+                    result.AppendFormat(ACTION_RANGE, range);*/
+
+
+                    result.AppendFormat(ACTION_FORMAT, power.Action.Trigger, power.Keywords, actionType, actionHeadersUseType, power.Range);
                 }
 
-                result.AppendFormat(CREATURE_POWER, actionText, power.Name);
+                result.AppendFormat(CREATURE_POWER_HEADER, actionHeadersUseType, power.Name);
 
-                if (power.Attack != null)
+                if (!string.IsNullOrEmpty(power.Description))
+                    result.AppendFormat(POWER_EMOTE, power.Description);
+
+                if (!string.IsNullOrEmpty(power.Condition))
                 {
-                    result.AppendFormat(CREATURE_POWER_ATTACK, power.Range, power.Attack.Bonus, power.Attack.Defence);
+                    result.AppendFormat(PREREQUISITE, power.Condition);
                 }
 
-                var powerHit = base.ExtractHit(power.Details);
-                if (!string.IsNullOrEmpty(powerHit))
+                if (power.Attack == null)
                 {
-                    result.Append(string.Format(POWER_HIT, AnnotateDamage(powerHit.Trim())));
+                    result.Append(string.Format(POWER_EFFECT, AnnotateDamage(power.Details)));
                 }
-
-                var powerEffect = base.ExtractEffect(power.Details);
-                if (!string.IsNullOrEmpty(powerEffect))
+                else
                 {
-                    result.Append(string.Format(POWER_EFFECT, AnnotateDamage(powerEffect.Trim())));
-                }
-
-                if (string.IsNullOrEmpty(powerHit) && string.IsNullOrEmpty(powerEffect))
-                {
-                    result.Append(string.Format(POWER_HIT, AnnotateDamage(power.Details.Trim())));
+                    ParseAttackPower(power, result);
                 }
 
                 addEnd = true;
@@ -104,7 +131,44 @@ namespace MonsterPorter.Renderers
             return result.ToString();
         }
 
-        private static Regex dmgRegex = new Regex("\\d?d\\d+\\s*([+-]\\s*\\d)");
+        private string ActionTypeToString(ActionType action)
+        {
+            switch (action)
+            {
+                case ActionType.None:
+                    return "No Action";
+                case ActionType.Interrupt:
+                case ActionType.Reaction:
+                    return "Immediate " + action.ToString();
+                case ActionType.Opportunity:
+                    return "Opportunity Action";
+                default:
+                    return action.ToString();
+            }
+        }
+
+        private void ParseAttackPower(CreaturePower power, StringBuilder result)
+        {
+            result.AppendFormat(CREATURE_POWER_ATTACK, power.Attack.Bonus, power.Attack.Defence);
+            var powerHit = base.ExtractHit(power.Details);
+            if (!string.IsNullOrEmpty(powerHit))
+            {
+                result.Append(string.Format(POWER_HIT, AnnotateDamage(powerHit)));
+            }
+
+            var powerEffect = base.ExtractEffect(power.Details);
+            if (!string.IsNullOrEmpty(powerEffect))
+            {
+                result.Append(string.Format(POWER_EFFECT, AnnotateDamage(powerEffect)));
+            }
+
+            if (string.IsNullOrEmpty(powerHit) && string.IsNullOrEmpty(powerEffect))
+            {
+                result.Append(string.Format(POWER_HIT, AnnotateDamage(power.Details)));
+            }
+        }
+
+        private static Regex dmgRegex = new Regex("\\d?d\\d+\\s*([+-]\\s*\\d+)");
         private string AnnotateDamage(string source)
         {
             return dmgRegex.Replace(source, ReplaceDamage);

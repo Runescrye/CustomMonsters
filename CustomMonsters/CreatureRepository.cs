@@ -17,6 +17,7 @@ namespace MonsterPorter
         public Dictionary<int, Dictionary<string, ICreature>> CreatureByLevel { get; private set; }
         public Dictionary<RoleType, Dictionary<string, ICreature>> CreatureByRole { get; private set; }
         public Dictionary<CreatureType, Dictionary<string, ICreature>> CreatureByType { get; private set; }
+        public Dictionary<string, Library> LibraryByCreature { get; private set; }
 
         public CreatureRepository(string librariesDirectoryPath)
         {
@@ -26,6 +27,7 @@ namespace MonsterPorter
             CreatureByLibrary = new Dictionary<string, Dictionary<string, ICreature>>();
             CreatureByLevel = new Dictionary<int, Dictionary<string, ICreature>>();
             CreatureByRole = new Dictionary<RoleType, Dictionary<string, ICreature>>();
+            LibraryByCreature = new Dictionary<string, Library>();
         }
 
         public void Load()
@@ -43,6 +45,7 @@ namespace MonsterPorter
                 {
                     Creatures.Add(creature);
                     AddValue(CreatureByLibrary,library.Name, creature);
+                    LibraryByCreature[creature.Name] = library;
                     /*AddValue(CreatureByLevel, creature.Level, creature);
                     AddValue(CreatureByRole, creature.Role.Type, creature);
                     AddValue(CreatureByType, creature.Type, creature);*/

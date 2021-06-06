@@ -25,7 +25,7 @@ namespace MonsterPorter.Renderers
             return haystack.Substring(start, end);
         }
 
-        protected string PowerUseTypeToString(PowerUseType useType)
+        protected string PowerUseTypeToHeaderString(PowerUseType useType)
         {
             switch (useType)
             {
@@ -38,6 +38,22 @@ namespace MonsterPorter.Renderers
                     return "daily";
                 default:
                     return "other";
+            }
+        }
+
+        protected string PowerUseTypeToString(PowerUseType useType)
+        {
+            switch (useType)
+            {
+                case PowerUseType.AtWill:
+                case PowerUseType.Basic:
+                    return "At-Will";
+                case PowerUseType.Encounter:
+                    return "Encounter";
+                case PowerUseType.Daily:
+                    return "Daily";
+                default:
+                    return "Other";
             }
         }
 
@@ -91,12 +107,12 @@ namespace MonsterPorter.Renderers
 
         protected string ExtractHit(string details)
         {
-            return StringToStringSubstring(details, "Hit: ", "Effect:");
+            return StringToStringSubstring(details, "Hit: ", "Effect:")?.Trim();
         }
 
         protected string ExtractEffect(string details)
         {
-            return StringToStringSubstring(details, "Effect: ", "Hit:");
+            return StringToStringSubstring(details, "Effect: ", "Hit:")?.Trim();
         }
     }
 }

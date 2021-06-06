@@ -30,17 +30,23 @@ namespace MonsterPorter.Controls
         private void InitializeComponent()
         {
             this.panelFilters = new System.Windows.Forms.Panel();
+            this.txtNameFilter = new System.Windows.Forms.TextBox();
             this.comboType = new System.Windows.Forms.ComboBox();
             this.comboRole = new System.Windows.Forms.ComboBox();
             this.txtLevel = new System.Windows.Forms.TextBox();
             this.comboSources = new System.Windows.Forms.ComboBox();
-            this.lstCreatures = new System.Windows.Forms.ListBox();
-            this.txtNameFilter = new System.Windows.Forms.TextBox();
+            this.lstCreatures = new System.Windows.Forms.ListView();
+            this.clmLevel = new System.Windows.Forms.ColumnHeader();
+            this.clmRole = new System.Windows.Forms.ColumnHeader();
+            this.clmRank = new System.Windows.Forms.ColumnHeader();
+            this.clmName = new System.Windows.Forms.ColumnHeader();
+            this.lblSource = new System.Windows.Forms.Label();
             this.panelFilters.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelFilters
             // 
+            this.panelFilters.Controls.Add(this.lblSource);
             this.panelFilters.Controls.Add(this.txtNameFilter);
             this.panelFilters.Controls.Add(this.comboType);
             this.panelFilters.Controls.Add(this.comboRole);
@@ -49,8 +55,17 @@ namespace MonsterPorter.Controls
             this.panelFilters.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelFilters.Location = new System.Drawing.Point(0, 0);
             this.panelFilters.Name = "panelFilters";
-            this.panelFilters.Size = new System.Drawing.Size(223, 63);
+            this.panelFilters.Size = new System.Drawing.Size(349, 63);
             this.panelFilters.TabIndex = 1;
+            // 
+            // txtNameFilter
+            // 
+            this.txtNameFilter.Location = new System.Drawing.Point(74, 6);
+            this.txtNameFilter.Name = "txtNameFilter";
+            this.txtNameFilter.PlaceholderText = "Name...";
+            this.txtNameFilter.Size = new System.Drawing.Size(147, 23);
+            this.txtNameFilter.TabIndex = 8;
+            this.txtNameFilter.TextChanged += new System.EventHandler(this.txtNameFilter_TextChanged);
             // 
             // comboType
             // 
@@ -118,22 +133,47 @@ namespace MonsterPorter.Controls
             // 
             // lstCreatures
             // 
+            this.lstCreatures.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.clmLevel,
+            this.clmRole,
+            this.clmRank,
+            this.clmName});
             this.lstCreatures.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstCreatures.FormattingEnabled = true;
-            this.lstCreatures.ItemHeight = 15;
+            this.lstCreatures.FullRowSelect = true;
+            this.lstCreatures.HideSelection = false;
             this.lstCreatures.Location = new System.Drawing.Point(0, 63);
+            this.lstCreatures.MultiSelect = false;
             this.lstCreatures.Name = "lstCreatures";
-            this.lstCreatures.Size = new System.Drawing.Size(223, 422);
+            this.lstCreatures.ShowGroups = false;
+            this.lstCreatures.Size = new System.Drawing.Size(349, 422);
             this.lstCreatures.TabIndex = 2;
+            this.lstCreatures.UseCompatibleStateImageBehavior = false;
+            this.lstCreatures.View = System.Windows.Forms.View.Details;
+            this.lstCreatures.SelectedIndexChanged += new System.EventHandler(this.lstCreatures_SelectedIndexChanged);
             // 
-            // txtNameFilter
+            // clmLevel
             // 
-            this.txtNameFilter.Location = new System.Drawing.Point(74, 6);
-            this.txtNameFilter.Name = "txtNameFilter";
-            this.txtNameFilter.PlaceholderText = "Name...";
-            this.txtNameFilter.Size = new System.Drawing.Size(147, 23);
-            this.txtNameFilter.TabIndex = 8;
-            this.txtNameFilter.TextChanged += new System.EventHandler(this.txtNameFilter_TextChanged);
+            this.clmLevel.Text = "LVL";
+            // 
+            // clmRole
+            // 
+            this.clmRole.Text = "Role";
+            // 
+            // clmRank
+            // 
+            this.clmRank.Text = "Rank";
+            // 
+            // clmName
+            // 
+            this.clmName.Text = "Name";
+            // 
+            // lblSource
+            // 
+            this.lblSource.AutoSize = true;
+            this.lblSource.Location = new System.Drawing.Point(228, 13);
+            this.lblSource.Name = "lblSource";
+            this.lblSource.Size = new System.Drawing.Size(0, 15);
+            this.lblSource.TabIndex = 9;
             // 
             // LibraryCreatureList
             // 
@@ -142,7 +182,7 @@ namespace MonsterPorter.Controls
             this.Controls.Add(this.lstCreatures);
             this.Controls.Add(this.panelFilters);
             this.Name = "LibraryCreatureList";
-            this.Size = new System.Drawing.Size(223, 485);
+            this.Size = new System.Drawing.Size(349, 485);
             this.panelFilters.ResumeLayout(false);
             this.panelFilters.PerformLayout();
             this.ResumeLayout(false);
@@ -151,11 +191,16 @@ namespace MonsterPorter.Controls
 
         #endregion
         private System.Windows.Forms.Panel panelFilters;
-        private System.Windows.Forms.ListBox lstCreatures;
         private System.Windows.Forms.ComboBox comboSources;
         private System.Windows.Forms.TextBox txtLevel;
         private System.Windows.Forms.ComboBox comboRole;
         private System.Windows.Forms.ComboBox comboType;
         private System.Windows.Forms.TextBox txtNameFilter;
+        private System.Windows.Forms.ListView lstCreatures;
+        private System.Windows.Forms.ColumnHeader clmLevel;
+        private System.Windows.Forms.ColumnHeader clmRole;
+        private System.Windows.Forms.ColumnHeader clmRank;
+        private System.Windows.Forms.ColumnHeader clmName;
+        private System.Windows.Forms.Label lblSource;
     }
 }

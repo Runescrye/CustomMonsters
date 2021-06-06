@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using MonsterPorter.Renderers;
 using Masterplan.Data;
+using Masterplan.Tools;
 
 namespace MonsterPorter
 {
@@ -9,10 +10,15 @@ namespace MonsterPorter
     {
         Options options = new Options();
         CreatureRepository creatureRepo;
+        private System.Windows.Forms.WebBrowser Browser;
 
         public Main()
         {
             InitializeComponent();
+            Browser = new WebBrowser();
+            pnlDetails.Controls.Add(Browser);
+            Browser.Dock = DockStyle.Fill;
+            Browser.DocumentText = string.Empty;
         }
 
         private void menu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -67,8 +73,18 @@ namespace MonsterPorter
                 var renderer = CreateRenderer(Properties.Settings.Default.RenderType);
                 var macro = renderer.Render(creature);
                 txtCreatureMacro.Text = macro;
+                DisplayCreature(creature);
             }
+
             lstCreatures.EndUpdate();
+        }
+
+        private void DisplayCreature(ICreature creature)
+        {
+            EncounterCard card = new EncounterCard(creature);
+            string html = HTML.StatBlock(card, null, null, true, false, true, CardMode.View, DisplaySize.Small);
+            Browser.Document.OpenNew(true);
+            Browser.Document.Write(html);
         }
 
         private IRenderer CreateRenderer(string rendererName)
@@ -92,6 +108,7 @@ namespace MonsterPorter
                 var renderer = CreateRenderer(Properties.Settings.Default.RenderType);
                 var macro = renderer.Render(selectedCreature);
                 txtCreatureMacro.Text = macro;
+                DisplayCreature(selectedCreature);
             }
         }
     }
