@@ -141,12 +141,7 @@ namespace MonsterPorter.Renderers
         private static Regex dmgRegex = new Regex("\\d?d\\d+\\s*([+-]\\s*\\d+)");
         private string AnnotateDamage(string source)
         {
-            return dmgRegex.Replace(source, ReplaceDamage);
-        }
-
-        private string ReplaceDamage(Match match)
-        {
-            return "XX" + match.Value + "ZZ";
+            return dmgRegex.Replace(source, x => "XX" + x.Value + "ZZ");
         }
     }
 }

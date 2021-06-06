@@ -19,29 +19,6 @@ namespace MonsterPorter.Renderers
             options.Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
             options.WriteIndented = true;
             return JsonSerializer.Serialize(creature, options);
-            /*
-            var result = new Dictionary<string,object>();
-            result.Add("ac", creature.AC);
-            result.Add("alignment", creature.Alignment);
-            result.Add("category", creature.Category);
-            result.Add("charisma", creature.Charisma);
-            result.Add("constitution", creature.Constitution);
-            result.Add("strength", creature.Strength);
-            result.Add("dexterity", creature.Dexterity);
-            result.Add("intelligence", creature.Intelligence);
-            result.Add("initiative", creature.Initiative);
-            result.Add("movement", creature.Movement);
-            result.Add("origin", creature.Origin);
-            result.Add("name", creature.Name);
-            result.Add("phenotype", creature.Phenotype);
-            result.Add("resist", creature.Resist);
-            result.Add("size", base.SizeToString(creature.Size));
-            result.Add("role", base.RoleToString((ComplexRole)creature.Role));
-            result.Add("equipment", creature.Equipment);
-            result.Add("auras", ParseAuras(creature));
-            result.Add("powers", ParsePowers(creature));
-
-            return JsonSerializer.Serialize(result);*/
         }
 
         private List<Dictionary<string, object>> ParseAuras(ICreature creature)

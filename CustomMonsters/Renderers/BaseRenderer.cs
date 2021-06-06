@@ -57,27 +57,6 @@ namespace MonsterPorter.Renderers
             }
         }
 
-        protected string SizeToString(CreatureSize size)
-        {
-            switch (size)
-            {
-                case CreatureSize.Tiny:
-                    return "tiny";
-                case CreatureSize.Small:
-                    return "small";
-                case CreatureSize.Medium:
-                    return "medium";
-                case CreatureSize.Large:
-                    return "large";
-                case CreatureSize.Huge:
-                    return "huge";
-                case CreatureSize.Gargantuan:
-                    return "gargantuan";
-                default:
-                    return "medium";
-            }
-        }
-
         protected string RoleToString(ComplexRole role)
         {
             switch (role.Type)
