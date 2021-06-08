@@ -12,7 +12,7 @@ namespace MonsterPorter.Renderers
         const string CREATURE_STAT_BLOCK = @"${0}${1}${2}${3}${4}${5}${6}${7}" + END;
         const string CREATURE_AURA = @"{{{{other=yes}}}}{{{{name={0}}}}}{{{{effect={1}}}}}";
         const string CREATURE_POWER_HEADER = @"{{{{{0}=yes }}}}{{{{name={1}}}}}{{{{emote={2}}}}}{{{{requirement={3}}}}}";
-        const string CREATURE_POWER_ATTACK = @"{{{{attack=XXd20+{0}ZZ vs {1}}}}}";
+        const string CREATURE_POWER_ATTACK = @"{{{{attack=XXd20+{0}ZZ vs YY{{target|character_name}}'s {1} (XXYY{{target|{2}}}ZZ)}}}}";
         const string POWER_HIT = @"{{{{hiteffect={0}}}}}";
         const string POWER_EFFECT = @"{{{{effect={0}}}}}";
         const string AURA_NAME_FORMAT = @"{0} {1}";
@@ -69,25 +69,8 @@ namespace MonsterPorter.Renderers
                 {
                     result.Append(END);
                 }
-                var actionHeadersUseType = "other";
 
-                if (power.Category != CreaturePowerCategory.Trait)
-                {
-                    actionHeadersUseType = PowerUseTypeToHeaderString(power.Action.Use);
-
-                    var actionType = ActionTypeToString(power.Action.Action);
-                    actionType += !string.IsNullOrEmpty(power.Keywords) ? " ♦" : string.Empty;
-
-                    var actionBodyUseType = PowerUseTypeToString(power.Action.Use) + " ♦";
-
-                    var range = (power.Attack == null) ? "Personal" : "Melee";
-                    range = string.IsNullOrEmpty(power.Range) ? range : power.Range;
-
-                    result.AppendFormat(ACTION_FORMAT, power.Action.Trigger, power.Keywords, actionType, actionBodyUseType, range);
-                }
-
-                result.AppendFormat(CREATURE_POWER_HEADER, actionHeadersUseType, power.Name, power.Description, power.Condition);
-                ParseAttack(power, result);
+                ParsePower(power, result);
 
                 addEnd = true;
             }
@@ -95,15 +78,40 @@ namespace MonsterPorter.Renderers
             return result.ToString();
         }
 
-        private void ParseAttack(CreaturePower power, StringBuilder result)
+        private void ParsePower(CreaturePower power, StringBuilder result)
         {
-            if (power.Attack == null)
+            var actionHeadersUseType = "other";
+
+            if (power.Category != CreaturePowerCategory.Trait)
             {
-                result.Append(string.Format(POWER_EFFECT, AnnotateDamage(power.Details)));
-                return;
+                actionHeadersUseType = PowerUseTypeToHeaderString(power.Action.Use);
+
+                var actionType = ActionTypeToString(power.Action.Action);
+                actionType += !string.IsNullOrEmpty(power.Keywords) ? " ♦" : string.Empty;
+
+                var actionBodyUseType = PowerUseTypeToString(power.Action.Use) + " ♦";
+
+                var range = (power.Attack == null) ? "Personal" : "Melee";
+                range = string.IsNullOrEmpty(power.Range) ? range : power.Range;
+
+                result.AppendFormat(ACTION_FORMAT, power.Action.Trigger, power.Keywords, actionType, actionBodyUseType, range);
             }
 
-            result.AppendFormat(CREATURE_POWER_ATTACK, power.Attack.Bonus, power.Attack.Defence);
+            result.AppendFormat(CREATURE_POWER_HEADER, actionHeadersUseType, power.Name, power.Description, power.Condition);
+
+            if (power.Attack == null)
+            {
+                var details = string.IsNullOrEmpty(power.Details) ? power.Range : power.Details;
+                
+                result.Append(string.Format(POWER_EFFECT, AnnotateDamage(details)));
+                return;
+            }
+            ParseAttack(power, result);
+        }
+
+        private void ParseAttack(CreaturePower power, StringBuilder result)
+        {
+            result.AppendFormat(CREATURE_POWER_ATTACK, power.Attack.Bonus, power.Attack.Defence, DefenceToRoll20Attribute(power.Attack.Defence));
             var powerHit = ExtractHit(power.Details);
             if (!string.IsNullOrEmpty(powerHit))
             {
@@ -126,6 +134,23 @@ namespace MonsterPorter.Renderers
         private string AnnotateDamage(string source)
         {
             return dmgRegex.Replace(source, x => "XX" + x.Value + "ZZ");
+        }
+
+        private string DefenceToRoll20Attribute(DefenceType defence)
+        {
+            switch (defence)
+            {
+                case DefenceType.AC:
+                    return "ac";
+                case DefenceType.Fortitude:
+                    return "fort";
+                case DefenceType.Reflex:
+                    return "ref";
+                case DefenceType.Will:
+                    return "will";
+                default:
+                    return "ac";
+            }
         }
 
         private string ActionTypeToString(ActionType action)

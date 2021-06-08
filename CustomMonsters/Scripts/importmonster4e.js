@@ -38,7 +38,7 @@ on("chat:message", function (msg) {
   	var n = msg.content.split("$");
   
   	//!c$@{selected|token_id}$name$hp$AC$fort$ref$will$ability1$ability2
-  	/* C# code:
+  	/* C# code:i
   	        sb.Append("!c @{selected|token_id}$$");
             sb.Append(monstername + "$");
             sb.Append(level + "$");
@@ -72,24 +72,25 @@ on("chat:message", function (msg) {
     }
         
     // CHECK FOR DUPLICATE CHARACTERS
-	var CheckSheet = findObjs({
-		_type: "character",
-		name: MonsterName
-	});
+	var CheckSheet = findObjs({_type: "character", name: MonsterName});
     
+    var Character = null;
 	// DO NOT CREATE IF SHEET EXISTS
-	if (CheckSheet.length > 0) {
-		sendChat("ERROR", "This monster already exists.");
-		return;
-	}  
+	if (CheckSheet.length == 0) 
+	{
+		var tokenSrc = Token.get("imgsrc").replace("max", "thumb");
       
-  	// CREATE CHARACTER SHEET & LINK TOKEN TO SHEET
-  	var Character = createObj("character", {
-  		avatar: Token.get("imgsrc"),
-  		name: MonsterName,
-  		gmnotes: Token.get("gmnotes"),
-  		archived: false
-  	});
+  	    // CREATE CHARACTER SHEET & LINK TOKEN TO SHEET
+    	Character = createObj("character", {
+      		avatar: tokenSrc,
+      		name: MonsterName,
+      		gmnotes: Token.get("gmnotes"),
+      		archived: false});
+	}
+	else
+	{
+	    Character = CheckSheet[0];
+	}
   	
   	// Set HP
   	createObj("attribute", {
@@ -155,22 +156,28 @@ on("chat:message", function (msg) {
   	Token.set("aura2_square", true);
 
     // add abilities
-    for (var i = ABILITY_START; i < n.length; i++) {
+    for (var i = ABILITY_START; i < n.length; i++) 
+    {
       var abname = GetMidString(n[i],"name=","}}");
-      var str =  n[i];
-      var str = str.replace(/(\r\n|\n|\r)/gm,"");
-      var str = str.replace(/XX/igm, "[[");
-      var str = str.replace(/ZZ/igm, "]]");
-      var str = str.replace(/T4T/igm, "&{template:dnd4epower}");
-      var str = str.replace(/T4E/igm, "&{template:dnd4epower}");
+      var str =  ExtractPower(n[i]);
       
-      createObj("ability", {
-    		name: abname,
-    		description: "",
-    		action: str,
-    		istokenaction: true,
-    		characterid: Character.id
-    	
+      var abilityCheck = findObjs({_type: "ability", characterid: Character.id, name: abname});;
+      var ability = null;
+      
+      if (abilityCheck.length == 0)
+      {
+          ability = createObj("ability", {characterid: Character.id});
+      }
+      else
+      {
+          ability = abilityCheck[0];
+      }
+      
+      ability.set({
+        name: abname,
+        description: "",
+        action: str,
+        istokenaction: true
       });
     }
   	
@@ -190,6 +197,7 @@ function ExtractPower(input) {
     var str = str.replace(/ZZ/igm, "]]");
     var str = str.replace(/T4E/igm, "&{template:dnd4epower}");
     var str = str.replace(/T4T/igm, "&{template:dnd4epower}");
+    var str = str.replace(/YY/igm, "@")
     return str;
 }
       
