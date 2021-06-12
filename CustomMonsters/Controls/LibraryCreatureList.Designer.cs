@@ -30,6 +30,7 @@ namespace MonsterPorter.Controls
         private void InitializeComponent()
         {
             this.panelFilters = new System.Windows.Forms.Panel();
+            this.lblSource = new System.Windows.Forms.Label();
             this.txtNameFilter = new System.Windows.Forms.TextBox();
             this.comboType = new System.Windows.Forms.ComboBox();
             this.comboRole = new System.Windows.Forms.ComboBox();
@@ -40,7 +41,6 @@ namespace MonsterPorter.Controls
             this.clmRole = new System.Windows.Forms.ColumnHeader();
             this.clmRank = new System.Windows.Forms.ColumnHeader();
             this.clmName = new System.Windows.Forms.ColumnHeader();
-            this.lblSource = new System.Windows.Forms.Label();
             this.panelFilters.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,6 +57,14 @@ namespace MonsterPorter.Controls
             this.panelFilters.Name = "panelFilters";
             this.panelFilters.Size = new System.Drawing.Size(349, 63);
             this.panelFilters.TabIndex = 1;
+            // 
+            // lblSource
+            // 
+            this.lblSource.AutoSize = true;
+            this.lblSource.Location = new System.Drawing.Point(228, 13);
+            this.lblSource.Name = "lblSource";
+            this.lblSource.Size = new System.Drawing.Size(0, 15);
+            this.lblSource.TabIndex = 9;
             // 
             // txtNameFilter
             // 
@@ -149,6 +157,7 @@ namespace MonsterPorter.Controls
             this.lstCreatures.TabIndex = 2;
             this.lstCreatures.UseCompatibleStateImageBehavior = false;
             this.lstCreatures.View = System.Windows.Forms.View.Details;
+            this.lstCreatures.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lstCreatures_ColumnClick);
             this.lstCreatures.SelectedIndexChanged += new System.EventHandler(this.lstCreatures_SelectedIndexChanged);
             // 
             // clmLevel
@@ -166,14 +175,6 @@ namespace MonsterPorter.Controls
             // clmName
             // 
             this.clmName.Text = "Name";
-            // 
-            // lblSource
-            // 
-            this.lblSource.AutoSize = true;
-            this.lblSource.Location = new System.Drawing.Point(228, 13);
-            this.lblSource.Name = "lblSource";
-            this.lblSource.Size = new System.Drawing.Size(0, 15);
-            this.lblSource.TabIndex = 9;
             // 
             // LibraryCreatureList
             // 

@@ -13,21 +13,20 @@ namespace MonsterPorter
         public List<ICreature> Creatures { get; private set; }
         public string Path { get; private set; }
 
-        public Dictionary<string, Dictionary<string, ICreature>> CreatureByLibrary { get; private set; }
-        public Dictionary<int, Dictionary<string, ICreature>> CreatureByLevel { get; private set; }
-        public Dictionary<RoleType, Dictionary<string, ICreature>> CreatureByRole { get; private set; }
-        public Dictionary<CreatureType, Dictionary<string, ICreature>> CreatureByType { get; private set; }
-        public Dictionary<string, Library> LibraryByCreature { get; private set; }
+        public Dictionary<string, Dictionary<Guid, ICreature>> CreatureByLibrary { get; private set; }
+        public Dictionary<Guid, Library> LibraryByCreature { get; private set; }
+        public Dictionary<Guid, ICreature> CreatureByID { get; private set; }
+        public Dictionary<string, ICreature> CreatureByName { get; private set; }
 
         public CreatureRepository(string librariesDirectoryPath)
         {
             Path = librariesDirectoryPath;
             Creatures = new List<ICreature>();
             Libraries = new Dictionary<string, Library>();
-            CreatureByLibrary = new Dictionary<string, Dictionary<string, ICreature>>();
-            CreatureByLevel = new Dictionary<int, Dictionary<string, ICreature>>();
-            CreatureByRole = new Dictionary<RoleType, Dictionary<string, ICreature>>();
-            LibraryByCreature = new Dictionary<string, Library>();
+            CreatureByLibrary = new Dictionary<string, Dictionary<Guid, ICreature>>();
+            CreatureByID = new Dictionary<Guid, ICreature>();
+            LibraryByCreature = new Dictionary<Guid, Library>();
+            CreatureByName = new Dictionary<string, ICreature>();
         }
 
         public void Load()
@@ -43,29 +42,32 @@ namespace MonsterPorter
 
                 foreach (var creature in library.Creatures)
                 {
+                    // Filter duplicates
+                    if (CreatureByID.ContainsKey(creature.ID) || CreatureByName.ContainsKey(creature.Name))
+                        continue;
+
+                    CreatureByID.Add(creature.ID, creature);
                     Creatures.Add(creature);
-                    AddValue(CreatureByLibrary,library.Name, creature);
-                    LibraryByCreature[creature.Name] = library;
-                    /*AddValue(CreatureByLevel, creature.Level, creature);
-                    AddValue(CreatureByRole, creature.Role.Type, creature);
-                    AddValue(CreatureByType, creature.Type, creature);*/
+                    AddValue(CreatureByLibrary, library.Name, creature.ID, creature);
+                    CreatureByName[creature.Name] = creature;
+                    LibraryByCreature[creature.ID] = library;
                 }
             }
         }
 
-        private void AddValue<T>(Dictionary<T, Dictionary<string, ICreature>> dict, T key, ICreature value)
+        private void AddValue<T,K>(Dictionary<T, Dictionary<K, ICreature>> dict, T key, K identifier, ICreature creature)
         {
             if (!dict.ContainsKey(key))
             {
-                dict.Add(key, new Dictionary<string, ICreature>());
+                dict.Add(key, new Dictionary<K, ICreature>());
             }
 
-            if (dict[key].ContainsKey(value.Name))
+            if (dict[key].ContainsKey(identifier))
             {
                 return;
             }
 
-            dict[key].Add(value.Name, value);
+            dict[key].Add(identifier, creature);
         }
 
         public Library ExtractLibrary(string libraryPath)
@@ -98,7 +100,7 @@ namespace MonsterPorter
                 filters.Add(new Predicate<ICreature>(x => x.Level == level.Value));
 
             if (!string.IsNullOrEmpty(libraryName))
-                filters.Add(new Predicate<ICreature>(x => CreatureByLibrary.ContainsKey(libraryName) && CreatureByLibrary[libraryName].ContainsKey(x.Name)));
+                filters.Add(new Predicate<ICreature>(x => CreatureByLibrary.ContainsKey(libraryName) && CreatureByLibrary[libraryName].ContainsKey(x.ID)));
 
             if (role.HasValue)
                 filters.Add(new Predicate<ICreature>(x => x.Role.Type == role.Value));

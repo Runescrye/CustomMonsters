@@ -7,9 +7,12 @@ namespace MonsterPorter.Controls
 {
     public partial class LibraryCreatureList : UserControl
     {
+        public ContextMenuStrip ContextMenu { get { return lstCreatures.ContextMenuStrip; } set { lstCreatures.ContextMenuStrip = value; } }
+
         private CreatureRepository repo;
-        private Dictionary<Guid, string[]> creatureColumns;
-        private Dictionary<string, string> sourceAbbreviation;
+        private Dictionary<Guid, ListViewItem> creatureViewItems = new Dictionary<Guid, ListViewItem>();
+        private Dictionary<string, string> sourceAbbreviation = new Dictionary<string, string>();
+        private ListViewColumnSorter columnSorter = new ListViewColumnSorter();
 
         public event EventHandler SelectedIndexChanged
         {
@@ -20,18 +23,25 @@ namespace MonsterPorter.Controls
         public LibraryCreatureList()
         {
             InitializeComponent();
-            creatureColumns = new Dictionary<Guid, string[]>();
-            sourceAbbreviation = new Dictionary<string, string>();
+            lstCreatures.ListViewItemSorter = columnSorter;
         }
 
         public void Populate(CreatureRepository repo)
         {
             this.repo = repo;
+
+            foreach (var creature in repo.Creatures)
+            {
+                var viewItem = new ListViewItem(new[] { creature.Level.ToString(), creature.Role.Type.ToString(), creature.Role.Flag.ToString(), creature.Name });
+                viewItem.Tag = creature;
+                creatureViewItems.Add(creature.ID, viewItem);
+            }
+
             PopulateList(repo);
 
-            creatureColumns.Clear();
             comboSources.BeginUpdate();
             comboSources.Items.Add("");
+
             foreach (var library in repo.Libraries)
             {
                 if (library.Value.Creatures.Count == 0)
@@ -51,9 +61,9 @@ namespace MonsterPorter.Controls
 
         public ICreature SelectedItem
         {
-            get 
-            {    
-                return lstCreatures.SelectedItems.Count > 0 ? lstCreatures.SelectedItems[0].Tag as ICreature : null; 
+            get
+            {
+                return lstCreatures.SelectedItems.Count > 0 ? lstCreatures.SelectedItems[0].Tag as ICreature : null;
             }
         }
 
@@ -62,6 +72,14 @@ namespace MonsterPorter.Controls
             PopulateList(repo);
         }
 
+        private void lstCreatures_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            columnSorter.Order = (e.Column != columnSorter.SortColumn || columnSorter.Order != SortOrder.Ascending) ? SortOrder.Ascending : SortOrder.Descending;
+            columnSorter.SortColumn = e.Column;
+
+            // Perform the sort with these new sort options.
+            lstCreatures.Sort();
+        }
 
         private void comboRole_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -85,6 +103,7 @@ namespace MonsterPorter.Controls
 
         private void PopulateList(CreatureRepository repo)
         {
+            lstCreatures.ListViewItemSorter = null;
             lstCreatures.BeginUpdate();
             lstCreatures.Items.Clear();
 
@@ -99,19 +118,14 @@ namespace MonsterPorter.Controls
 
             foreach (var creature in repo.GetCreatureBy(filterLevel, txtNameFilter.Text, libraryName, filterRole, filterType))
             {
-                if (!creatureColumns.ContainsKey(creature.ID))
-                {
-                    creatureColumns.Add(creature.ID, new[] { creature.Level.ToString(), creature.Role.Type.ToString(), creature.Role.Flag.ToString(), creature.Name });
-                }
-                ListViewItem item = new ListViewItem(creatureColumns[creature.ID]);
-                item.Tag = creature;
-                lstCreatures.Items.Add(item);
+                lstCreatures.Items.Add(creatureViewItems[creature.ID]);
             }
-
+            
             lstCreatures.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.HeaderSize);
             lstCreatures.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
             lstCreatures.AutoResizeColumn(2, ColumnHeaderAutoResizeStyle.ColumnContent);
             lstCreatures.AutoResizeColumn(3, ColumnHeaderAutoResizeStyle.ColumnContent);
+            lstCreatures.ListViewItemSorter = columnSorter;
             lstCreatures.EndUpdate();
         }
 
@@ -157,7 +171,7 @@ namespace MonsterPorter.Controls
             if (list.SelectedItems.Count > 0)
             {
                 var creature = (ICreature)list.SelectedItems[0].Tag;
-                lblSource.Text = repo.LibraryByCreature[creature.Name].Name;
+                lblSource.Text = repo.LibraryByCreature[creature.ID].Name;
             }
         }
     }

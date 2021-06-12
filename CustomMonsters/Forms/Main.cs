@@ -19,6 +19,9 @@ namespace MonsterPorter
             pnlDetails.Controls.Add(Browser);
             Browser.Dock = DockStyle.Fill;
             Browser.DocumentText = string.Empty;
+            contextLibrary.Items.Add("Copy Name").Click += LibraryContextCopyNameClick;
+            contextLibrary.Items.Add("Copy Macro").Click += LibraryContextCopyMacroClick;
+            creatureLibrary.ContextMenuStrip = contextLibrary; 
         }
 
         private void menu_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -35,6 +38,22 @@ namespace MonsterPorter
                     Reload();
                 }
             }
+        }
+
+        void LibraryContextCopyNameClick(object sender, EventArgs e)
+        {
+            if (creatureLibrary.SelectedItem == null)
+                return;
+
+            Clipboard.SetText(creatureLibrary.SelectedItem.Name);
+        }
+
+        void LibraryContextCopyMacroClick(object sender, EventArgs e)
+        {
+            if (creatureLibrary.SelectedItem == null)
+                return;
+
+            Clipboard.SetText(txtCreatureMacro.Text);
         }
 
         private void Main_Load(object sender, EventArgs e)

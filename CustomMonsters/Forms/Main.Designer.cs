@@ -29,28 +29,30 @@ namespace MonsterPorter
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menu = new System.Windows.Forms.MenuStrip();
             this.mnuOptions = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.txtCreatureMacro = new System.Windows.Forms.TextBox();
+            this.pnlDetails = new System.Windows.Forms.Panel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.tabCreatures = new System.Windows.Forms.TabControl();
-            this.tabCustom = new System.Windows.Forms.TabPage();
-            this.lstCreatures = new System.Windows.Forms.ListBox();
             this.tabLibraries = new System.Windows.Forms.TabPage();
             this.creatureLibrary = new MonsterPorter.Controls.LibraryCreatureList();
+            this.tabCustom = new System.Windows.Forms.TabPage();
+            this.lstCreatures = new System.Windows.Forms.ListBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.pnlDetails = new System.Windows.Forms.Panel();
+            this.contextLibrary = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.menu.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.tabCreatures.SuspendLayout();
-            this.tabCustom.SuspendLayout();
-            this.tabLibraries.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.tabCreatures.SuspendLayout();
+            this.tabLibraries.SuspendLayout();
+            this.tabCustom.SuspendLayout();
             this.SuspendLayout();
             // 
             // menu
@@ -80,6 +82,24 @@ namespace MonsterPorter
             this.panel1.Size = new System.Drawing.Size(914, 559);
             this.panel1.TabIndex = 4;
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(370, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.txtCreatureMacro);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.pnlDetails);
+            this.splitContainer1.Size = new System.Drawing.Size(544, 559);
+            this.splitContainer1.SplitterDistance = 150;
+            this.splitContainer1.TabIndex = 5;
+            // 
             // txtCreatureMacro
             // 
             this.txtCreatureMacro.BackColor = System.Drawing.SystemColors.Window;
@@ -93,6 +113,14 @@ namespace MonsterPorter
             this.txtCreatureMacro.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtCreatureMacro.Size = new System.Drawing.Size(544, 150);
             this.txtCreatureMacro.TabIndex = 0;
+            // 
+            // pnlDetails
+            // 
+            this.pnlDetails.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlDetails.Location = new System.Drawing.Point(0, 0);
+            this.pnlDetails.Name = "pnlDetails";
+            this.pnlDetails.Size = new System.Drawing.Size(544, 405);
+            this.pnlDetails.TabIndex = 6;
             // 
             // splitter1
             // 
@@ -112,6 +140,26 @@ namespace MonsterPorter
             this.tabCreatures.SelectedIndex = 0;
             this.tabCreatures.Size = new System.Drawing.Size(360, 559);
             this.tabCreatures.TabIndex = 3;
+            // 
+            // tabLibraries
+            // 
+            this.tabLibraries.Controls.Add(this.creatureLibrary);
+            this.tabLibraries.Location = new System.Drawing.Point(4, 24);
+            this.tabLibraries.Name = "tabLibraries";
+            this.tabLibraries.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLibraries.Size = new System.Drawing.Size(352, 531);
+            this.tabLibraries.TabIndex = 1;
+            this.tabLibraries.Text = "Libraries";
+            this.tabLibraries.UseVisualStyleBackColor = true;
+            // 
+            // creatureLibrary
+            // 
+            this.creatureLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.creatureLibrary.Location = new System.Drawing.Point(3, 3);
+            this.creatureLibrary.Name = "creatureLibrary";
+            this.creatureLibrary.Size = new System.Drawing.Size(346, 525);
+            this.creatureLibrary.TabIndex = 0;
+            this.creatureLibrary.SelectedIndexChanged += new System.EventHandler(this.creatureLibrary_SelectedIndexChanged);
             // 
             // tabCustom
             // 
@@ -135,51 +183,10 @@ namespace MonsterPorter
             this.lstCreatures.TabIndex = 0;
             this.lstCreatures.SelectedIndexChanged += new System.EventHandler(this.lstCreatures_SelectedIndexChanged);
             // 
-            // tabLibraries
+            // contextLibrary
             // 
-            this.tabLibraries.Controls.Add(this.creatureLibrary);
-            this.tabLibraries.Location = new System.Drawing.Point(4, 24);
-            this.tabLibraries.Name = "tabLibraries";
-            this.tabLibraries.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLibraries.Size = new System.Drawing.Size(352, 531);
-            this.tabLibraries.TabIndex = 1;
-            this.tabLibraries.Text = "Libraries";
-            this.tabLibraries.UseVisualStyleBackColor = true;
-            // 
-            // creatureLibrary
-            // 
-            this.creatureLibrary.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.creatureLibrary.Location = new System.Drawing.Point(3, 3);
-            this.creatureLibrary.Name = "creatureLibrary";
-            this.creatureLibrary.Size = new System.Drawing.Size(346, 525);
-            this.creatureLibrary.TabIndex = 0;
-            this.creatureLibrary.SelectedIndexChanged += new System.EventHandler(this.creatureLibrary_SelectedIndexChanged);
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(370, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.txtCreatureMacro);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.pnlDetails);
-            this.splitContainer1.Size = new System.Drawing.Size(544, 559);
-            this.splitContainer1.SplitterDistance = 150;
-            this.splitContainer1.TabIndex = 5;
-            // 
-            // pnlDetails
-            // 
-            this.pnlDetails.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlDetails.Location = new System.Drawing.Point(0, 0);
-            this.pnlDetails.Name = "pnlDetails";
-            this.pnlDetails.Size = new System.Drawing.Size(544, 405);
-            this.pnlDetails.TabIndex = 6;
+            this.contextLibrary.Name = "contextLibrary";
+            this.contextLibrary.Size = new System.Drawing.Size(61, 4);
             // 
             // Main
             // 
@@ -195,14 +202,14 @@ namespace MonsterPorter
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.tabCreatures.ResumeLayout(false);
-            this.tabCustom.ResumeLayout(false);
-            this.tabLibraries.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.tabCreatures.ResumeLayout(false);
+            this.tabLibraries.ResumeLayout(false);
+            this.tabCustom.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -222,6 +229,7 @@ namespace MonsterPorter
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Panel pnlDetails;
+        private System.Windows.Forms.ContextMenuStrip contextLibrary;
     }
 }
 
