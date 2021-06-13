@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace MonsterPorter.Controls
@@ -53,8 +55,21 @@ namespace MonsterPorter.Controls
             listviewX = (ListViewItem)x;
             listviewY = (ListViewItem)y;
 
+            var strX = listviewX.SubItems[ColumnToSort].Text;
+            var strY = listviewY.SubItems[ColumnToSort].Text;
+
+            int numX;
+            int numY;
+
             // Compare the two items
-            compareResult = ObjectCompare.Compare(listviewX.SubItems[ColumnToSort].Text, listviewY.SubItems[ColumnToSort].Text);
+            if (int.TryParse(strX, out numX) && int.TryParse(strY, out numY))
+            {
+                compareResult = Convert.ToInt32(numX > numY);
+            }
+            else
+            {
+                compareResult = ObjectCompare.Compare(strX, strY);
+            }
 
             // Calculate correct return value based on object comparison
             if (OrderOfSort == SortOrder.Ascending)
@@ -73,6 +88,7 @@ namespace MonsterPorter.Controls
                 return 0;
             }
         }
+
 
         /// <summary>
         /// Gets or sets the number of the column to which to apply the sorting operation (Defaults to '0').
