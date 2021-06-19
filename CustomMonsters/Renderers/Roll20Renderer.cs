@@ -51,7 +51,7 @@ namespace MonsterPorter.Renderers
                 }
 
                 string auraText = string.Format(AURA_NAME_FORMAT, aura.Name + " Aura", aura.Radius);
-                result.AppendFormat(CREATURE_AURA, auraText, aura.Details);
+                result.AppendFormat(CREATURE_AURA, auraText, NormalizeAura(aura.Details));
                 addEnd = true;
             }
 

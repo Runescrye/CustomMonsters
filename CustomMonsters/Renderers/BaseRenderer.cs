@@ -11,8 +11,8 @@ namespace MonsterPorter.Renderers
     abstract class BaseRenderer : IRenderer
     {
         public abstract string Render(ICreature creature);
-        protected static Regex dmgRegex     = new Regex(@"\d*d\d+\s*(?:[+-]\s*\d+)?");
-        protected static Regex attackRegex  = new Regex(@"\+(\d+)\s*vs\.?\s*(Fortitude|Reflex|Will|AC)");
+        protected static Regex dmgRegex = new Regex(@"\d*d\d+\s*(?:[+-]\s*\d+)?");
+        protected static Regex attackRegex = new Regex(@"\+(\d+)\s*vs\.?\s*(Fortitude|Reflex|Will|AC)");
         protected static Regex skillValue = new Regex(@"\d+");
 
         protected string StringToStringSubstring(string haystack, string first, string last)
@@ -46,11 +46,30 @@ namespace MonsterPorter.Renderers
             return result;
         }
 
+        const string WRONG_DETAIL_START = "; ";
+        protected string NormalizeAura(string auraDetails)
+        {
+            if (string.IsNullOrEmpty(auraDetails) || !auraDetails.StartsWith(WRONG_DETAIL_START))
+                return auraDetails;
+
+            var textStart = WRONG_DETAIL_START.Length;
+
+            StringBuilder fixedAura = new StringBuilder(auraDetails.Length);
+
+            if (auraDetails.Length > WRONG_DETAIL_START.Length)
+            {
+                fixedAura.Append(char.ToUpper(auraDetails[textStart]));
+                textStart++;
+            }
+
+            fixedAura.Append(auraDetails, textStart, auraDetails.Length - textStart);
+
+            return fixedAura.ToString();
+        }
+
         protected int CalculateCreatureXP(ICreature creature)
         {
-            var xp = 0;
-            
-            xp = XPByLevel(creature.Level);
+            var xp = XPByLevel(creature.Level);
             switch (creature.Role.Flag)
             {
                 case RoleFlag.Minion:

@@ -176,33 +176,33 @@ namespace MonsterPorter.Renderers
 
 			result.Add(TR);
 			result.Add(TD_COLSPAN3);
-			result.Add("<B>" + sectionName + "</B> " + WebUtility.HtmlEncode(sectionValue));
+			result.Add($"<B>{sectionName} {WebUtility.HtmlEncode(sectionValue)}");
 			result.Add("</TD>");
 			result.Add("</TR>");
 		}
 
         private void ParseActionPointsAndSaves(ICreature creature, List<string> content)
         {
-			int save_mod = 0;
-			int ap = 0;
+			int saveMod = 0;
+			int AP = 0;
 
 			switch (creature.Role.Flag)
 			{
 				case RoleFlag.Elite:
-					save_mod = 2;
-					ap = 1;
+					saveMod = 2;
+					AP = 1;
 					break;
 				case RoleFlag.Solo:
-					save_mod = 5;
-					ap = 2;
+					saveMod = 5;
+					AP = 2;
 					break;
 			}
 
-			if (ap != 0)
+			if (AP != 0)
 			{
 				content.Add(TR);
 				content.Add(TD_COLSPAN2);
-				content.Add("<B>Saving Throws</B>" + " +" + save_mod + " <B>Action Points</B> " + ap);
+				content.Add($"<B>Saving Throws</B> +{saveMod} <B>Action Points</B> {AP}");
 				content.Add("</TD>");
 				content.Add("</TR>");
 			}
@@ -249,6 +249,9 @@ namespace MonsterPorter.Renderers
 
         private void AddPowerCategory(CreaturePowerCategory powerCategory, List<string> parsedPowers, List<string> content)
         {
+			if (parsedPowers.Count == 0)
+				return;
+
 			content.Add(TR_CREATURE);
 			content.Add(TD_COLSPAN3);
 			content.Add("<B>" + PowerCategoryToString(powerCategory) + "</B>");
@@ -276,9 +279,8 @@ namespace MonsterPorter.Renderers
 
         private void ParseAura(Aura aura, List<string> content)
         {
-			string aura_details = WebUtility.HtmlEncode(aura.Description.Trim());
-			if (aura_details.StartsWith("aura", StringComparison.OrdinalIgnoreCase))
-				aura_details = "A" + aura_details.Substring(1);
+			string normalizedAura = NormalizeAura(aura.Description);
+			string auraDetails = WebUtility.HtmlEncode(normalizedAura);
 
 			var data = EncodeImage(Resources.aura);
 
@@ -295,7 +297,7 @@ namespace MonsterPorter.Renderers
 
 			content.Add(TR);
 			content.Add(TD_COLSPAN3);
-			content.Add(aura_details);
+			content.Add(auraDetails);
 			content.Add("</TD>");
 			content.Add("</TR>");
 		}
@@ -506,41 +508,41 @@ namespace MonsterPorter.Renderers
 
 		private string AttackToString(PowerAttack attack)
         {
-			string sign = (attack.Bonus >= 0) ? "+" : "";
+			string sign = (attack.Bonus >= 0) ? "+" : string.Empty;
 			return "[[/roll 1d20" + sign + attack.Bonus + "[vs. " + attack.Defence + "]" + "]]";
 	}
 
 		private void ParseResistances(ICreature creature, List<string> content)
         {
-			string resist = WebUtility.HtmlEncode(creature.Resist ?? "");
-			string vuln = WebUtility.HtmlEncode(creature.Vulnerable ?? "");
-			string immune = WebUtility.HtmlEncode(creature.Immune ?? "");
+			string resist = WebUtility.HtmlEncode(creature.Resist ?? string.Empty);
+			string vuln = WebUtility.HtmlEncode(creature.Vulnerable ?? string.Empty);
+			string immune = WebUtility.HtmlEncode(creature.Immune ?? string.Empty);
 
 			immune = string.Join(", ", creature.DamageModifiers.Where(x => x.Value == 0).Select(x=> x.Type.ToString().ToLower()).Append(immune));
-			vuln = string.Join(", ", creature.DamageModifiers.Where(x => x.Value > 0).Select(x => x.Type.ToString().ToLower()).Append(vuln));
-			resist = string.Join(", ", creature.DamageModifiers.Where(x => x.Value < 0).Select(x => x.Type.ToString().ToLower()).Append(resist));
+			vuln = string.Join(", ", creature.DamageModifiers.Where(x => x.Value > 0).Select(x => Math.Abs(x.Value) + " " + x.Type.ToString().ToLower()).Append(vuln));
+			resist = string.Join(", ", creature.DamageModifiers.Where(x => x.Value < 0).Select(x => Math.Abs(x.Value) + " " + x.Type.ToString().ToLower()).Append(resist));
 
-			string damage_mods = "";
-			if (immune != "")
+			string damage_mods = string.Empty;
+			if (immune != string.Empty)
 			{
 				damage_mods += "<B>Immune</B> " + immune;
 			}
-			if (resist != "")
+			if (resist != string.Empty)
 			{
-				if (damage_mods != "")
+				if (damage_mods != string.Empty)
 					damage_mods += "; ";
 
 				damage_mods += "<B>Resist</B> " + resist;
 			}
-			if (vuln != "")
+			if (vuln != string.Empty)
 			{
-				if (damage_mods != "")
+				if (damage_mods != string.Empty)
 					damage_mods += "; ";
 
 				damage_mods += "<B>Vulnerable</B> " + vuln;
 			}
 
-			if (damage_mods != "")
+			if (damage_mods != string.Empty)
 			{
 				content.Add(TR);
 				content.Add(TD_COLSPAN2);
