@@ -107,13 +107,9 @@ namespace MonsterPorter.Controls
             lstCreatures.BeginUpdate();
             lstCreatures.Items.Clear();
 
-            int parsedLevel;
-            RoleType parsedRole;
-            CreatureType parsedType;
-
-            int? filterLevel = (int.TryParse(txtLevel.Text, out parsedLevel)) ? parsedLevel : null;
-            RoleType? filterRole = Enum.TryParse(comboRole.Text, out parsedRole) ? parsedRole : null;
-            CreatureType? filterType = Enum.TryParse(comboType.Text, out parsedType) ? parsedType : null;
+            int? filterLevel = (int.TryParse(txtLevel.Text, out int parsedLevel)) ? parsedLevel : null;
+            RoleType? filterRole = Enum.TryParse(comboRole.Text, out RoleType parsedRole) ? parsedRole : null;
+            CreatureType? filterType = Enum.TryParse(comboType.Text, out CreatureType parsedType) ? parsedType : null;
             var libraryName = string.IsNullOrEmpty(comboSources.Text) ? string.Empty : sourceAbbreviation[comboSources.Text];
 
             foreach (var creature in repo.GetCreatureBy(filterLevel, txtNameFilter.Text, libraryName, filterRole, filterType))

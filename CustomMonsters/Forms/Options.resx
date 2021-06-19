@@ -168,6 +168,9 @@
   <data name="comboRenderType.Items1" xml:space="preserve">
     <value>Json</value>
   </data>
+  <data name="comboRenderType.Items2" xml:space="preserve">
+    <value>FoundryVTT</value>
+  </data>
   <data name="comboRenderType.Location" type="System.Drawing.Point, System.Drawing.Primitives">
     <value>121, 69</value>
   </data>

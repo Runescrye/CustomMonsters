@@ -58,11 +58,8 @@ namespace MonsterPorter.Controls
             var strX = listviewX.SubItems[ColumnToSort].Text;
             var strY = listviewY.SubItems[ColumnToSort].Text;
 
-            int numX;
-            int numY;
-
-            // Compare the two items
-            if (int.TryParse(strX, out numX) && int.TryParse(strY, out numY))
+            // Compare numbers as numbers and rest as strings
+            if (int.TryParse(strX, out int numX) && int.TryParse(strY, out int numY))
             {
                 compareResult = Convert.ToInt32(numX > numY);
             }

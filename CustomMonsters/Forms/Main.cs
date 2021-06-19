@@ -10,7 +10,7 @@ namespace MonsterPorter
     {
         Options options = new Options();
         CreatureRepository creatureRepo;
-        private System.Windows.Forms.WebBrowser Browser;
+        private WebBrowser Browser;
 
         public Main()
         {
@@ -114,6 +114,8 @@ namespace MonsterPorter
                     return new Roll20Renderer();
                 case "Json":
                     return new JsonRenderer();
+                case "FoundryVTT":
+                    return new FoundryVTTRenderer(creatureRepo.LibraryByCreature);
                 default:
                     return new Roll20Renderer();
             }

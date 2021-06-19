@@ -71,7 +71,8 @@ namespace MonsterPorter
             this.comboRenderType.FormattingEnabled = true;
             this.comboRenderType.Items.AddRange(new object[] {
             resources.GetString("comboRenderType.Items"),
-            resources.GetString("comboRenderType.Items1")});
+            resources.GetString("comboRenderType.Items1"),
+            resources.GetString("comboRenderType.Items2")});
             resources.ApplyResources(this.comboRenderType, "comboRenderType");
             this.comboRenderType.Name = "comboRenderType";
             this.comboRenderType.SelectedIndexChanged += new System.EventHandler(this.comboRenderType_SelectedIndexChanged);
