@@ -514,14 +514,19 @@ namespace MonsterPorter.Renderers
 
 		private void ParseResistances(ICreature creature, List<string> content)
         {
-			string resist = WebUtility.HtmlEncode(creature.Resist ?? string.Empty);
-			string vuln = WebUtility.HtmlEncode(creature.Vulnerable ?? string.Empty);
-			string immune = WebUtility.HtmlEncode(creature.Immune ?? string.Empty);
+			var immune = string.Join(", ", creature.DamageModifiers.Where(x => x.Value == 0).Select(x => x.Type.ToString().ToLower()));
+			var vuln = string.Join(", ", creature.DamageModifiers.Where(x => x.Value > 0).Select(x => Math.Abs(x.Value) + " " + x.Type.ToString().ToLower()));
+			var resist = string.Join(", ", creature.DamageModifiers.Where(x => x.Value < 0).Select(x => Math.Abs(x.Value) + " " + x.Type.ToString().ToLower()));
 
-			immune = string.Join(", ", creature.DamageModifiers.Where(x => x.Value == 0).Select(x=> x.Type.ToString().ToLower()).Append(immune));
-			vuln = string.Join(", ", creature.DamageModifiers.Where(x => x.Value > 0).Select(x => Math.Abs(x.Value) + " " + x.Type.ToString().ToLower()).Append(vuln));
-			resist = string.Join(", ", creature.DamageModifiers.Where(x => x.Value < 0).Select(x => Math.Abs(x.Value) + " " + x.Type.ToString().ToLower()).Append(resist));
+			if (!string.IsNullOrEmpty(creature.Resist))
+				resist += ", " + WebUtility.HtmlEncode(creature.Resist);
 
+			if (!string.IsNullOrEmpty(creature.Vulnerable))
+				vuln += ", " + WebUtility.HtmlEncode(creature.Vulnerable);
+
+			if (!string.IsNullOrEmpty(creature.Immune))
+				immune += ", " + WebUtility.HtmlEncode(creature.Immune);
+			
 			string damage_mods = string.Empty;
 			if (immune != string.Empty)
 			{
