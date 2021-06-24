@@ -612,10 +612,10 @@ namespace MonsterPorter.Renderers
 
         private void ParseDefences(ICreature creature, IList<string> result)
         {
-			string ac_str = "<B>AC</B> " + creature.AC;
-			string fort_str = "<B>Fort</B> " + creature.Fortitude;
-			string ref_str = "<B>Ref</B> " + creature.Reflex;
-			string will_str = "<B>Will</B> " + creature.Will;
+			string ac_str = $"<B>AC</B> {creature.AC}";
+			string fort_str = $"<B>Fort</B> {creature.Fortitude}";
+			string ref_str = $"<B>Ref</B> {creature.Reflex}";
+			string will_str = $"<B>Will</B> {creature.Will}";
 
 			result.Add(TD_COLSPAN2);
 			result.Add(ac_str + "; " + fort_str + "; " + ref_str + "; " + will_str);
@@ -631,17 +631,17 @@ namespace MonsterPorter.Renderers
 				init_str = "+" + init_str;
 
 			result.Add(TD);
-			result.Add("<B>Initiative</B> " + init_str);
+			result.Add($"<B>Initiative</B> {init_str}");
 			result.Add("</TD>");
 		}
 
         private void ParseHP(ICreature creature, IList<string> result)
         {
-			string hp_str = "<B>HP</B> " + creature.HP.ToString();
+			string hp_str = $"<B>HP</B> {creature.HP}";
 
 			if (creature.Role.Flag != RoleFlag.Minion)
 			{
-				string bloodied_str = "<B>Bloodied</B> " + (creature.HP / 2).ToString();
+				string bloodied_str = $"<B>Bloodied</B> {creature.HP / 2}";
 				hp_str += "; " + bloodied_str;
 			}
 

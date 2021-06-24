@@ -29,6 +29,8 @@ namespace MonsterPorter.Controls
         public void Populate(CreatureRepository repo)
         {
             this.repo = repo;
+            creatureViewItems.Clear();
+            sourceAbbreviation.Clear();
 
             foreach (var creature in repo.Creatures)
             {
@@ -40,6 +42,7 @@ namespace MonsterPorter.Controls
             PopulateList(repo);
 
             comboSources.BeginUpdate();
+            comboSources.Items.Clear();
             comboSources.Items.Add("");
 
             foreach (var library in repo.Libraries)
@@ -47,11 +50,19 @@ namespace MonsterPorter.Controls
                 if (library.Value.Creatures.Count == 0)
                     continue;
 
-                var libraryShortName = library.Value.Name.Replace("Monster Manual", "MM");
+                var libraryShortName = AbbreviationLibraryName(library.Value.Name);
                 sourceAbbreviation.Add(libraryShortName, library.Value.Name);
-                comboSources.Items.Add(libraryShortName);
+
+                if (!comboSources.Items.Contains(libraryShortName))
+                    comboSources.Items.Add(libraryShortName);
             }
             comboSources.EndUpdate();
+        }
+
+        private string AbbreviationLibraryName(string name)
+        {
+            var libraryShortName = name.Replace("Monster Manual", "MM").Replace("Dragon Magazine", "DrM").Replace("Dungeon Magazine", "DM");
+            return libraryShortName;
         }
 
         public int SelectedIndex
