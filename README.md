@@ -1,9 +1,10 @@
 # Custom Monsters
-A tool to import monsters from MonsterPlanner into other platforms
+A tool to import monsters from Masterplanner into other platforms
 
 # Usage Instructions
-This application uses .creature files exported from MasterPlanner and parses them into a format used by the roll20 API script (or other formats in the future).
-In the options menu simply direct the application to where the exported .creature files are and it will populate the list with them.
+This application uses .creature or .library files exported from Masterplanner and parses them into a format used by the roll20 API script or Foundry journal entries.
+
+In the options menu direct the application to where the exported .creature/.library files are and it will list them in the main window. Choose either Roll20 or Foundry as the target to export to.
 
 For parsing ease, it assumes that effects of a hit are preceded by "Hit: " and actual effects are "Effect: ". Otherwise it dumps the entire power description into the Roll20 hit clause.
 
@@ -13,3 +14,4 @@ It hasn't been tested on a whole lot of creatures,
 
 # Credits
 Vorpal for writing the initial Roll20 JS import script.
+Andy Aikan for the fantastic Masterplanner application, of course.
