@@ -64,6 +64,8 @@ namespace MonsterPorter
         private void Reload()
         {
             ListCreatures();
+            if (string.IsNullOrEmpty(Properties.Settings.Default.LibraryDirectoryPath))
+                return;
             creatureRepo = new CreatureRepository(Properties.Settings.Default.LibraryDirectoryPath);
             creatureRepo.Load();
             creatureLibrary.Populate(creatureRepo);
